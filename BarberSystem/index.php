@@ -3,6 +3,35 @@ include "log-header.php";
 
 	
 ?>
+
+
+<?php
+  if(isset($_POST['log'])){
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $password =md5($password);
+        $sql = "SELECT * FROM user  WHERE email = '".$email."' AND password = '".$password."'";
+        $result = mysqli_query($data, $sql);
+        $row = mysqli_fetch_array($result);
+					
+        if (!empty($row)) {
+            
+                
+                $_SESSION["welcome"] = "Welcome $username. You are now logged in!";   
+                header('Location: about.php');
+                die();
+        }
+
+        else if (empty($row)) {
+        header('Location: index.php?invalid=error');
+
+        }
+    }
+  }
+?>
+
+
     <!--login start-->
     <div style="display:flex;" id="home">
         <img style="margin-top:6rem;margin-left:40rem" width="200rem" height="auto" src="./img/logo.png" alt="">
@@ -16,7 +45,8 @@ include "log-header.php";
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
     </div>-->
-    <div class="form-floating mb-3" style="width:25rem;margin-left:53rem">
+    <form action="" method="POST">
+        <div class="form-floating mb-3" style="width:25rem;margin-left:53rem">
                         <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
                         <label for="email" name="email">Email</label>
                     </div>
@@ -32,7 +62,7 @@ include "log-header.php";
                    </div>  
                    <div style="margin-left:62rem;">
         
-                        <a class="btn btn-dark lo" data-bs-toggle="modal" style="padding:0.3rem;border-radius:0.5rem;font-size:1.5rem" data-bs-target="#"><b>LOGIN</b></a>
+                        <a  type="submit" class="btn btn-dark lo" data-bs-toggle="modal" style="padding:0.3rem;border-radius:0.5rem;font-size:1.5rem" data-bs-target="#"><b>LOGIN</b></a>
                                                     
                     </div> 
                     <br>
@@ -44,7 +74,8 @@ include "log-header.php";
                             <a class="form__link" href="#" data-bs-dismiss="modal"  data-bs-toggle="modal" data-bs-target="#sign">Don't have an account? Create account</a>
                         </p>
     
-                    </div>
+        </div>
+    </form>
                     <br>
 
     <section class="about" id="about">
@@ -291,43 +322,7 @@ include "log-header.php";
 
     }
 </style>
-<?php 
 
-if(isset($_POST['login'])){
-         //include our connection
-
-         $email= $_POST['email'];
-         $pass = $_POST['password'];
-         $pass = md5($pass);
-
-            include_once('database.php');
-
-            $database = new Connection();
-            $db = $database->open();
-            try{	
-                $sql = 'SELECT * FROM user';
-                $no = 0;
-                foreach ($db->query($sql) as $row) {
-                    $no++;
-
-                }
-                if($sql->num_rows==1){
-                    header(location: customer-booking.php);
-                }
-            }
-            catch(PDOException $e){
-                echo "There is some problem in connection: " . $e->getMessage();
-            }
-
-            //close connection
-            $database->close();
-        
-        
-}
-                
-            
-        
-?>
 
 
 <!--Modal-->
@@ -346,12 +341,12 @@ if(isset($_POST['login'])){
       <form class="form" action="" method="post">
                     <h1 class="form__title">LOGIN FORM</h1>
                     <div class="form-floating mb-3" style="width:25rem;margin-left:3rem">
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
-                        <label for="email" name="email">Email</label>
+                        <input type="text" class="form-control" id="e" name="e" placeholder="Email" required>
+                        <label for="e" name="e">Email</label>
                     </div>
                     <div class="form-floating mb-3" style="width:25rem;margin-left:3rem">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                        <label for="password" name="password">Password</label>
+                        <input type="password" class="form-control" id="p" name="p" placeholder="Password" required>
+                        <label for="p" name="p">Password</label>
                     </div>
 
                     <div class="space" style="margin-left:11rem">  
@@ -588,7 +583,7 @@ if(isset($_POST['login'])){
       
                     
                         
-                        
+<?php include('login.php');?>    
                
 <style>
     body{
@@ -606,8 +601,9 @@ if(isset($_POST['login'])){
    
     /*end-form*/
 </style>
-  
+
     
+
                                            
 <?php
 include "log-footer.php";

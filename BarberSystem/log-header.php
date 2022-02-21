@@ -1,4 +1,17 @@
+<?php
+    session_start();
+    $host = "localhost";
+    $user = "root";
+    $password = "";
+    $db = "barberdb";
 
+    $data = mysqli_connect($host, $user, $password, $db);
+
+    if($data === false){
+        die("connection error");
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -16,6 +29,7 @@
     
   </head>
   <body>
+  
 
     <input type="checkbox" id="check">
     <!--header area start-->
