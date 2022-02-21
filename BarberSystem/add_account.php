@@ -65,41 +65,7 @@
 		$_SESSION['message'] = 'Fill up add form first';
 	}
 
-    // if(isset($_POST['add']))
-    // {
-    //     $name = $_POST['name'];
-    //     $email = $_POST['email'];
-    //     $password = $_POST['password'];
-    //     $address = $_POST['address'];
-    //     $number = $_POST['number'];
-    //     $cpassword = $_POST['cpassword'];
-
-    //     $query ="INSERT INTO user (name, email, password, address, number) VALUES (:name, :email, :password, :address, :number)";
-    //     $query_run = $conn->prepare($query);
-
-    //     $data = [
-    //         ':name' => $name,
-    //         ':email' => $email,
-    //         ':password' => $password,
-    //         ':address' => $address,
-    //         ':cpassword' => $cpassword,
-    //     ];
-
-    //     $query_execute = $query_run->execute($data);
-
-    //     if($query_execute)
-    //     {
-    //         $_SESSION['message'] = "Inserted Succesfully";
-    //         header('location: index.php');
-    //         exit(0);
-    //     }   
-    //     else
-    //     {
-    //         $_SESSION['message'] = "Insertion Failed";
-    //         header('location: index.php');
-    //         exit(0);
-    //     }
-    // }
+    
 
 	header('location: index.php');
 ?>
